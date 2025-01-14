@@ -27,7 +27,9 @@ Use console.log() to write the proper output to the command line.
 // ...
 
 const fizzbuzz = () => {
-  for (let k = 1; k < 101; k++) {
+  //for (let k = 1; k < 101; k++) {
+  k = 1;
+  while (k < 101) {
     if (k % 3 == 0 && k % 5 == 0) {
       console.log("fizzbuzz");
     } else if (k % 5 == 0) {
@@ -37,6 +39,7 @@ const fizzbuzz = () => {
     } else {
       console.log(k);
     }
+    k += 1;
   }
 };
 
