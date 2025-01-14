@@ -25,3 +25,19 @@ Use console.log() to write the proper output to the command line.
 // 14
 // fizzbuzz
 // ...
+
+const fizzbuzz = () => {
+  for (let k = 1; k < 101; k++) {
+    if (k % 3 == 0) {
+      console.log("fizz");
+    } else if (k % 5 == 0) {
+      console.log("buzz");
+    } else if (k % 3 == 0 && k % 5 == 0) {
+      console.log("fizzbuzz");
+    } else {
+      console.log(k);
+    }
+  }
+};
+
+fizzbuzz();
