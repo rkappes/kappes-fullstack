@@ -26,15 +26,14 @@ Use console.log() to write the proper output to the command line.
 // fizzbuzz
 // ...
 
-const fizzbuzz = () => {
-  //for (let k = 1; k < 101; k++) {
-  k = 1;
+const fizzbuzz = function fizzbuzz() {
+  let k = 1;
   while (k < 101) {
-    if (k % 3 == 0 && k % 5 == 0) {
+    if (k % 3 === 0 && k % 5 === 0) {
       console.log("fizzbuzz");
-    } else if (k % 5 == 0) {
+    } else if (k % 5 === 0) {
       console.log("buzz");
-    } else if (k % 3 == 0) {
+    } else if (k % 3 === 0) {
       console.log("fizz");
     } else {
       console.log(k);
