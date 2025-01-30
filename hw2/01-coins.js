@@ -5,17 +5,21 @@ function format_output(denomination, amount) {
     plural = "",
     singular = "";
 
+  if (amount === 0) {
+    return result;
+  }
   if (denomination === "penny") {
     plural = "pennies";
+    singular = "penny";
   } else {
     plural = denomination + "s,";
     singular = denomination + ",";
   }
 
-  if (amount > 1 || amount === 0) {
+  if (amount > 1) {
     result += `${amount} ${plural} `;
   } else {
-    result += `, ${amount} ${denomination} `;
+    result += `${amount} ${singular} `;
   }
   return result;
 }
@@ -31,6 +35,8 @@ const calculateChange = function calculateChange(amount) {
 
   let result = "";
 
+  console.log(`Initial amount is ${amount}`);
+
   if (amount > 100) {
     result =
       "Amount is more than $100, please enter an amount less than or equal to 100";
@@ -44,7 +50,7 @@ const calculateChange = function calculateChange(amount) {
     result = `${dollars} dollars, ${quarters} quarters, ${dime} dimes, ${nickel} nickels, ${penny} pennies are needed`;
   }
 
-  result = `\$ ${amount} ==> `;
+  result = `\$${amount} ==> `;
   dollars = Math.floor(amount);
   result += format_output("dollar", dollars);
 
@@ -55,6 +61,8 @@ const calculateChange = function calculateChange(amount) {
   //   }
 
   cents = amount - dollars;
+  cents = parseFloat(cents.toFixed(2));
+  console.log(`After subtracting dollars, cents is now ${cents}`);
 
   quarters = Math.floor(cents / 0.25);
   result += format_output("quarter", quarters);
@@ -66,6 +74,8 @@ const calculateChange = function calculateChange(amount) {
   //   }
 
   cents -= quarters * 0.25;
+  cents = parseFloat(cents.toFixed(2));
+  console.log(`After subtracting quarters cents is now ${cents}`);
 
   dime = Math.floor(cents / 0.1);
   result += format_output("dime", dime);
@@ -77,11 +87,15 @@ const calculateChange = function calculateChange(amount) {
   //   }
 
   cents -= dime * 0.1;
+  cents = parseFloat(cents.toFixed(2));
+  console.log(`After subtracting dimes, cents is now ${cents}`);
 
   nickel = Math.floor(cents / 0.05);
   result += format_output("nickel", nickel);
 
   cents -= nickel * 0.05;
+  cents = parseFloat(cents.toFixed(2));
+  console.log(`After subtracting nickels, cents is now ${cents}`);
 
   penny = Math.floor(cents / 0.01);
   result += format_output("penny", penny);
