@@ -21,27 +21,35 @@ const server = http.createServer((req, res) => {
     "other",
   ];
 
-  if (req.url === "/") {
+  if (req.method === "GET" && req.url === "/") {
     res.writeHead(200, { "Content-Type": "text/html" });
     res.write("Node Routing Exercise");
     res.end();
-  } else if (req.url === "/welcome") {
+  } else if (req.method === "GET" && req.url === "/welcome") {
     res.writeHead(200, { "Content-Type": "text/html" });
-    res.write("<h1>Welcome!</h1>");
+    res.write("<h1>Welcome! This is the welcome page</h1>");
     res.end();
-  } else if (req.url === "/redirect") {
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.write("<p>This is the about page</p>");
+  } else if (req.method === "GET" && req.url === "/redirect") {
+    res.writeHead(302, {
+      "Content-Type": "text/html",
+      Location: "http://localhost:5001/redirected",
+    });
+    // res.redirect(302, "/redirected");
     res.end();
-  } else if (req.url === "/cache") {
+  } else if (req.method === "GET" && req.url === "/cache") {
     //TODO: Set cache max age
-    res.writeHead(200, { "Content-Type": "text/html" });
-    res.write("<p>this resource was cached'</p>");
+    res.writeHead(200, {
+      "Content-Type": "text/html",
+      "Cache-Control": "max-age=86400",
+    });
+    res.write("<p>This resource was cached</p>");
     res.end();
-  } else if (req.url === "/cookie") {
-    //TODO: Set hello=world as a cookie
-    res.writeHead(200, { "Content-Type": "text/plain" });
-    res.write("<p>cookies… yummm</p>");
+  } else if (req.method === "GET" && req.url === "/cookie") {
+    res.writeHead(200, {
+      "Content-Type": "text/plain",
+      "Set-Cookie": ["hello=world"],
+    });
+    res.write("<p>cookies...yummm</p>");
     res.end();
   } else {
     res.writeHead(404, { "Content-Type": "text/html" });
