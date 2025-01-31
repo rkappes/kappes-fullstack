@@ -39,7 +39,7 @@ const server = http.createServer((req, res) => {
   } else if (req.method === "GET" && req.url === "/cache") {
     //TODO: Set cache max age
     res.writeHead(200, {
-      "Content-Type": "text/html",
+      "Content-Type": "text/plain",
       "Cache-Control": "max-age=86400",
     });
     res.write("<p>This resource was cached</p>");
