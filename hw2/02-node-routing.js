@@ -36,20 +36,23 @@ const server = http.createServer((req, res) => {
     });
     // res.redirect(302, "/redirected");
     res.end();
+  } else if (req.method === "GET" && req.url === "/redirected") {
+    res.writeHead(200, { "Content-Type": "text/html" });
+    res.write("<p> You have been redirected</p>");
+    res.end();
   } else if (req.method === "GET" && req.url === "/cache") {
-    //TODO: Set cache max age
     res.writeHead(200, {
       "Content-Type": "text/plain",
       "Cache-Control": "max-age=86400",
     });
-    res.write("<p>This resource was cached</p>");
+    res.write("This resource was cached");
     res.end();
   } else if (req.method === "GET" && req.url === "/cookie") {
     res.writeHead(200, {
       "Content-Type": "text/plain",
       "Set-Cookie": ["hello=world"],
     });
-    res.write("<p>cookies...yummm</p>");
+    res.write("cookies...yummm");
     res.end();
   } else {
     res.writeHead(404, { "Content-Type": "text/html" });
