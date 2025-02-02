@@ -41,6 +41,12 @@ app.get("/redirect", (req, res) => {
   // res.send('Express Routing Exercise');
 });
 
+app.get("/redirected", (req, res) => {
+  res.status(200);
+  res.set({ "Content-Type": "text/html" });
+  res.send("You have been redirected!");
+});
+
 app.get("/cache", (req, res) => {
   res.status(200);
   res.set({ "Content-Type": "text/plain", "Cache-Control": "max-age=86400" });
