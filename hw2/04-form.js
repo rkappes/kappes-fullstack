@@ -8,7 +8,13 @@ const port = process.env.PORT || 5001;
 
 const file = new static.Server("./");
 const server = http.createServer((req, res) => {
-  if (req.method == "GET" && req.url === "/form") {
+  if (req.method == "GET" && req.url === "/") {
+    res.writeHead(302, {
+      "Content-Type": "text/html",
+      Location: "/form",
+    });
+    res.end();
+  } else if (req.method == "GET" && req.url === "/form") {
     file.serveFile("/form.html", 200, {}, req, res);
   } else if (req.method == "POST" && req.url === "/submit") {
     let body = "";
