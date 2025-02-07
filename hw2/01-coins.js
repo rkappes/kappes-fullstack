@@ -27,11 +27,13 @@ function format_output(denomination, amount) {
 // Add your function here
 const calculateChange = function calculateChange(amount) {
   let dollars = 0,
-    quarters = 0,
-    dime = 0,
-    nickel = 0,
-    penny = 0,
     cents = 0;
+  let denominations = {
+    quarters: { string: "quarter", denom: 0.25, value: 0 },
+    dime: { string: "dime", denom: 0.1, value: 0 },
+    nickel: { string: "nickel", denom: 0.05, value: 0 },
+    penny: { string: "penny", denom: 0.01, value: 0 },
+  };
 
   let result = "";
 
@@ -42,7 +44,7 @@ const calculateChange = function calculateChange(amount) {
   } else if (amount < 0) {
     result = `\$${amount} ==> Error: amount is negative, not valid`;
   } else if (amount === 0) {
-    result = `\$${amount} ==> ${dollars} dollars, ${quarters} quarters, ${dime} dimes, ${nickel} nickels, ${penny} pennies`;
+    result = `\$${amount} ==> 0 dollars, 0 quarters, 0 dimes, 0 nickels, 0 pennies`;
   } else {
     result = `\$${amount} ==> `;
     dollars = Math.floor(amount);
@@ -52,6 +54,17 @@ const calculateChange = function calculateChange(amount) {
     cents = parseFloat(cents.toFixed(2));
     //console.log(`After subtracting dollars, cents is now ${cents}`);
 
+    for (let coin in denominations) {
+      denominations[coin].value = Math.floor(cents / denominations[coin].denom);
+      result += format_output(
+        denominations[coin].string,
+        denominations[coin].value
+      );
+
+      cents -= denominations[coin].value * denominations[coin].denom;
+      cents = parseFloat(cents.toFixed(2));
+    }
+    /*
     quarters = Math.floor(cents / 0.25);
     result += format_output("quarter", quarters);
 
@@ -75,6 +88,7 @@ const calculateChange = function calculateChange(amount) {
 
     penny = Math.floor(cents / 0.01);
     result += format_output("penny", penny);
+    */
   }
   return result;
 };
@@ -93,3 +107,5 @@ console.log(calculateChange(0.0));
 
 console.log(calculateChange(-3));
 // $-3 ==> Error: amount is negative, not valid
+
+console.log(calculateChange(10.82));
