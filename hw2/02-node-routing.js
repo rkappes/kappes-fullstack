@@ -32,7 +32,7 @@ const server = http.createServer((req, res) => {
   } else if (req.method === "GET" && req.url === "/redirect") {
     res.writeHead(302, {
       "Content-Type": "text/html",
-      Location: "http://localhost:5001/redirected",
+      Location: "/redirected",
     });
     // res.redirect(302, "/redirected");
     res.end();
