@@ -55,8 +55,15 @@ app.get("/cache", (req, res) => {
 
 app.get("/cookie", (req, res) => {
   res.status(200);
-  res.set({ "Content-Type": "text/plain", "Set-Cookie": ["hello=world"] });
+  res.set({ "Content-Type": "text/plain" });
+  res.cookie("hello", "world");
   res.send("cookies....yummmm");
+});
+
+app.get("*", (req, res) => {
+  res.status(404);
+  res.set({ "Content-Type": "text/html" });
+  res.send("<h1>404: Sorry, page not found</h1>");
 });
 
 app.listen(port, () => {
